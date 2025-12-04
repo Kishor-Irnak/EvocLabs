@@ -4,72 +4,82 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Evoc Labs | Performance Marketing</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://i.postimg.cc/3wWLDB2q/Instagram-story-16.png"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              display: ['Space Grotesk', 'sans-serif'],
+              sans: ["Inter", "sans-serif"],
+              display: ["Space Grotesk", "sans-serif"],
             },
             colors: {
               brand: {
-                50: '#f5f3ff',
-                100: '#ede9fe',
-                200: '#ddd6fe',
-                300: '#c4b5fd',
-                400: '#a78bfa',
-                500: '#8b5cf6', // Violet 500 - Primary Brand Color
-                600: '#7c3aed',
-                700: '#6d28d9',
-                800: '#5b21b6',
-                900: '#4c1d95',
-                950: '#2e1065',
+                50: "#eff6ff",
+                100: "#dbeafe",
+                200: "#bfdbfe",
+                300: "#93c5fd",
+                400: "#60a5fa",
+                500: "#3b82f6", // Blue 500 - Primary Brand Color
+                600: "#2563eb",
+                700: "#1d4ed8",
+                800: "#1e40af",
+                900: "#1e3a8a",
+                950: "#172554",
               },
               accent: {
-                DEFAULT: '#8b5cf6', 
-                glow: '#a78bfa',
-              }
+                DEFAULT: "#3b82f6",
+                glow: "#60a5fa",
+              },
             },
             backgroundImage: {
-              'grid-pattern': "linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)",
+              // Changed grid lines to a deep blue (#172554)
+              "grid-pattern":
+                "linear-gradient(to right, #172554 1px, transparent 1px), linear-gradient(to bottom, #172554 1px, transparent 1px)",
             },
             animation: {
-              'spin-slow': 'spin 12s linear infinite',
-              'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'gradient-x': 'gradient-x 3s ease infinite',
+              "spin-slow": "spin 12s linear infinite",
+              "pulse-slow": "pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              "gradient-x": "gradient-x 3s ease infinite",
             },
             keyframes: {
-              'gradient-x': {
-                '0%, 100%': {
-                  'background-size': '200% 200%',
-                  'background-position': 'left center',
+              "gradient-x": {
+                "0%, 100%": {
+                  "background-size": "200% 200%",
+                  "background-position": "left center",
                 },
-                '50%': {
-                  'background-size': '200% 200%',
-                  'background-position': 'right center',
+                "50%": {
+                  "background-size": "200% 200%",
+                  "background-position": "right center",
                 },
               },
             },
-          }
-        }
-      }
+          },
+        },
+      };
     </script>
     <style>
       html {
         scroll-padding-top: 100px; /* Offset for fixed navbar */
       }
       body {
-        background-color: #020617; /* Slate 950 */
+        background-color: #020617; /* Slate 950 (Keep very dark base) */
         color: #ffffff;
         overflow-x: hidden;
       }
       .glass-card {
-        background: rgba(15, 15, 20, 0.7); /* Darker glass */
+        background: rgba(15, 23, 42, 0.7); /* Darker blue-ish glass */
         backdrop-filter: blur(16px);
-        border: 1px solid rgba(139, 92, 246, 0.1); /* Slight purple tint border */
+        border: 1px solid rgba(59, 130, 246, 0.1); /* Slight blue tint border */
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
       }
       .glass-panel {
@@ -86,31 +96,31 @@
         background: #020617;
       }
       ::-webkit-scrollbar-thumb {
-        background: #2e1065;
+        background: #172554; /* Blue 950 */
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #7c3aed;
+        background: #2563eb; /* Blue 600 */
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@18.2.0",
-    "react/": "https://esm.sh/react@18.2.0/",
-    "react-dom": "https://esm.sh/react-dom@18.2.0",
-    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-    "recharts": "https://esm.sh/recharts@2.12.0?external=react,react-dom",
-    "lucide-react": "https://esm.sh/lucide-react@0.330.0?external=react,react-dom",
-    "framer-motion": "https://esm.sh/framer-motion@11.0.8?external=react,react-dom",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@18.2.0",
+          "react/": "https://esm.sh/react@18.2.0/",
+          "react-dom": "https://esm.sh/react-dom@18.2.0",
+          "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+          "recharts": "https://esm.sh/recharts@2.12.0?external=react,react-dom",
+          "lucide-react": "https://esm.sh/lucide-react@0.330.0?external=react,react-dom",
+          "framer-motion": "https://esm.sh/framer-motion@11.0.8?external=react,react-dom",
+          "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="/index.css" />
+  </head>
   <body>
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+  </body>
 </html>
