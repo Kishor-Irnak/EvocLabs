@@ -33,7 +33,7 @@ const SidebarItem = ({ icon, label, active = false }) => (
 
 const KeywordItem = ({ label }) => (
   <div className="flex items-center gap-2 group cursor-pointer p-1">
-    <div className="w-1.5 h-1.5 rounded-full bg-neutral-700 group-hover:bg-purple-500 transition-colors" />
+    <div className="w-1.5 h-1.5 rounded-full bg-neutral-700 group-hover:bg-blue-500 transition-colors" />
     <span className="text-xs text-neutral-400 group-hover:text-white transition-colors truncate flex-1">
       {label}
     </span>
@@ -81,7 +81,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {/* Grid Plane with CSS Animation */}
         <div
-          className="absolute inset-0 -top-[50%] h-[200%] w-full bg-[linear-gradient(to_right,rgba(139,92,246,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(139,92,246,0.15)_1px,transparent_1px)] bg-[size:4rem_4rem]"
+          className="absolute inset-0 -top-[50%] h-[200%] w-full bg-[linear-gradient(to_right,rgba(59,130,246,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(59,130,246,0.15)_1px,transparent_1px)] bg-[size:4rem_4rem]"
           style={{
             transform: "perspective(500px) rotateX(60deg) scale(2.5)",
             animation: "gridMove 3s linear infinite",
@@ -106,22 +106,22 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-[#020617]/80 to-transparent h-[60%] z-10 pointer-events-none"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent h-[30%] bottom-0 z-10 pointer-events-none"></div>
 
-        {/* Central Purple Glow */}
-        <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none"></div>
+        {/* Central Blue Glow */}
+        <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none"></div>
       </div>
 
       <div className="max-w-6xl mx-auto px-6 relative z-10 text-center flex flex-col items-center mb-16 mt-10">
         {/* Badge */}
         <div
-          className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/60 border border-purple-500/30 backdrop-blur-md mb-8 shadow-[0_0_25px_rgba(139,92,246,0.2)] transition-all duration-1000 transform ${
+          className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/60 border border-blue-500/30 backdrop-blur-md mb-8 shadow-[0_0_25px_rgba(59,130,246,0.2)] transition-all duration-1000 transform ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
           }`}
         >
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-500 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
           </span>
-          <span className="text-xs font-bold text-purple-200 tracking-wider uppercase">
+          <span className="text-xs font-bold text-blue-200 tracking-wider uppercase">
             Now Accepting New Clients
           </span>
         </div>
@@ -133,7 +133,7 @@ const Hero = () => {
           }`}
         >
           Agency That Scales <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-purple-600 to-purple-200 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 via-blue-600 to-blue-200 bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">
             Evoc Labs
             <style jsx>{`
               @keyframes gradient {
@@ -164,7 +164,7 @@ const Hero = () => {
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <button className="px-10 py-4 rounded-full bg-purple-600 hover:bg-purple-500 text-white font-bold text-base transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(139,92,246,0.3)] hover:shadow-[0_0_40px_rgba(139,92,246,0.5)] group">
+          <button className="px-10 py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-base transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(59,130,246,0.3)] hover:shadow-[0_0_40px_rgba(59,130,246,0.5)] group">
             Start Project{" "}
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
@@ -183,7 +183,7 @@ const Hero = () => {
           }`}
         >
           {/* Top Glow behind dashboard */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-purple-600/20 blur-[80px] -z-10" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-blue-600/20 blur-[80px] -z-10" />
 
           {/* Dashboard Frame */}
           <div className="bg-[#0A0A0A]/90 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/5 hover:ring-white/10 transition-all">
@@ -195,8 +195,8 @@ const Hero = () => {
                 <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
               </div>
               <div className="hidden md:flex items-center gap-2 bg-black/40 px-3 py-1 rounded-md border border-white/5 min-w-[200px] md:min-w-[300px]">
-                <div className="w-4 h-4 rounded-full bg-purple-500/20 flex items-center justify-center">
-                  <div className="w-2 h-2 rounded-full bg-purple-400" />
+                <div className="w-4 h-4 rounded-full bg-blue-500/20 flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-blue-400" />
                 </div>
                 <span className="text-[10px] text-neutral-500 font-mono">
                   www.evoclabs.com
@@ -204,7 +204,7 @@ const Hero = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Search size={14} className="text-neutral-600" />
-                <div className="w-6 h-6 rounded bg-purple-600 flex items-center justify-center">
+                <div className="w-6 h-6 rounded bg-blue-600 flex items-center justify-center">
                   <Zap size={12} className="text-white fill-current" />
                 </div>
               </div>
@@ -306,12 +306,12 @@ const Hero = () => {
                               >
                                 <stop
                                   offset="0%"
-                                  stopColor="#9333ea"
+                                  stopColor="#3b82f6"
                                   stopOpacity="0.3"
                                 />
                                 <stop
                                   offset="100%"
-                                  stopColor="#9333ea"
+                                  stopColor="#3b82f6"
                                   stopOpacity="0"
                                 />
                               </linearGradient>
@@ -323,9 +323,9 @@ const Hero = () => {
                             <path
                               d={`M ${chartPoints}`}
                               fill="none"
-                              stroke="#a855f7"
+                              stroke="#60a5fa"
                               strokeWidth="2"
-                              className="drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]"
+                              className="drop-shadow-[0_0_10px_rgba(96,165,250,0.5)]"
                             />
                           </svg>
                         )}
@@ -358,17 +358,17 @@ const Hero = () => {
                         Traffic Sources
                       </p>
                       <div className="flex items-end gap-2 h-full pb-2">
-                        <div className="w-1/4 bg-purple-500/20 h-[60%] rounded-t-sm relative group cursor-pointer">
-                          <div className="absolute inset-x-0 bottom-0 bg-purple-500 h-1 group-hover:h-full transition-all duration-300 opacity-50" />
+                        <div className="w-1/4 bg-blue-500/20 h-[60%] rounded-t-sm relative group cursor-pointer">
+                          <div className="absolute inset-x-0 bottom-0 bg-blue-500 h-1 group-hover:h-full transition-all duration-300 opacity-50" />
                         </div>
-                        <div className="w-1/4 bg-purple-500/20 h-[80%] rounded-t-sm relative group cursor-pointer">
-                          <div className="absolute inset-x-0 bottom-0 bg-purple-500 h-1 group-hover:h-full transition-all duration-300 opacity-50" />
+                        <div className="w-1/4 bg-blue-500/20 h-[80%] rounded-t-sm relative group cursor-pointer">
+                          <div className="absolute inset-x-0 bottom-0 bg-blue-500 h-1 group-hover:h-full transition-all duration-300 opacity-50" />
                         </div>
-                        <div className="w-1/4 bg-purple-500/20 h-[40%] rounded-t-sm relative group cursor-pointer">
-                          <div className="absolute inset-x-0 bottom-0 bg-purple-500 h-1 group-hover:h-full transition-all duration-300 opacity-50" />
+                        <div className="w-1/4 bg-blue-500/20 h-[40%] rounded-t-sm relative group cursor-pointer">
+                          <div className="absolute inset-x-0 bottom-0 bg-blue-500 h-1 group-hover:h-full transition-all duration-300 opacity-50" />
                         </div>
-                        <div className="w-1/4 bg-purple-500/20 h-[90%] rounded-t-sm relative group cursor-pointer">
-                          <div className="absolute inset-x-0 bottom-0 bg-purple-500 h-1 group-hover:h-full transition-all duration-300 opacity-50" />
+                        <div className="w-1/4 bg-blue-500/20 h-[90%] rounded-t-sm relative group cursor-pointer">
+                          <div className="absolute inset-x-0 bottom-0 bg-blue-500 h-1 group-hover:h-full transition-all duration-300 opacity-50" />
                         </div>
                       </div>
                     </div>
