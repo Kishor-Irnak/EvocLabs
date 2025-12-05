@@ -30,8 +30,8 @@ function App() {
           <Navbar />
           <main>
             <Hero />
-            <MarketingProfitPages />
             <VideoSection />
+            <MarketingProfitPages />
             <Testimonials />
             <Results />
             <WhyChooseUs />
