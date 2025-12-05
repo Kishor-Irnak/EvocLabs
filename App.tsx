@@ -13,6 +13,7 @@ import Cursor from "./components/Cursor";
 import LoadingScreen from "./components/LoadingScreen";
 import Contact from "./components/Contact";
 import VideoSection from "./components/VideoSection";
+import MarketingProfitPages from "./components/MarketingProfitPage";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ function App() {
           <Navbar />
           <main>
             <Hero />
+            <MarketingProfitPages />
             <VideoSection />
             <Testimonials />
             <Results />
