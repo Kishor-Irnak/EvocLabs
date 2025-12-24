@@ -113,7 +113,7 @@ const Services: React.FC = () => {
 
           <div className="max-w-3xl">
             <BlurText
-              text="Comprehensive solutions to scale your revenue."
+              text="WHAT OUR CLIENTS SAYS."
               className="text-3xl md:text-5xl font-semibold text-text-main tracking-tight"
             />
           </div>

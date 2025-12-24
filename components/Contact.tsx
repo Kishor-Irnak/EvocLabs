@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Mail, Clock, Video, ArrowRight, CheckCircle } from "lucide-react";
+import { Mail, Clock, Video, ArrowRight, CheckCircle, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import BlurText from "./BlurText";
 
@@ -9,25 +9,37 @@ const Contact: React.FC = () => {
   return (
     <section
       id="contact"
-      className="py-24 bg-background relative border-t border-border"
+      // Added min-h-screen and flex items-center to center content vertically on desktop
+      className="relative min-h-screen flex items-center py-12 lg:py-0 bg-background overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Left Column */}
+      {/* Optional: Subtle Background Gradient Blob for Premium feel */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      
+      <div className="w-full max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          
+          {/* Left Column: Content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="flex flex-col justify-center"
           >
-            <h2 className="text-sm font-medium text-text-secondary uppercase tracking-wider mb-3">
-              Get Started
-            </h2>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border w-fit mb-6">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              <span className="text-xs font-medium text-text-secondary uppercase tracking-wider">
+                Get Started
+              </span>
+            </div>
 
             <div className="mb-6">
               <BlurText
                 text="Ready to ignite your growth?"
-                className="text-4xl md:text-6xl font-semibold text-text-main tracking-tight"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-main tracking-tight leading-[1.1]"
               />
             </div>
 
@@ -36,22 +48,28 @@ const Contact: React.FC = () => {
               opinion on your current ad stack — we're here to help.
             </p>
 
-            {/* Strategy Card */}
-            <div className="p-8 rounded-xl border border-border bg-surface">
-              <h4 className="text-xl font-semibold text-text-main mb-2">
-                Book a Strategy Call
-              </h4>
-              <p className="text-text-muted mb-6 text-sm">
-                Directly schedule a 30-min discovery session with our
-                strategist.
-              </p>
+            {/* Premium Strategy Card */}
+            <div className="p-6 md:p-8 rounded-2xl border border-border bg-surface/50 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                    <h4 className="text-lg font-semibold text-text-main">
+                        Book a Strategy Call
+                    </h4>
+                    <p className="text-text-muted text-sm mt-1">
+                        30-min discovery session with a strategist.
+                    </p>
+                </div>
+                <div className="bg-primary/10 p-2 rounded-lg">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                </div>
+              </div>
 
-              <div className="flex flex-col gap-3 mb-8">
-                <div className="flex items-center gap-3 text-text-main text-sm">
+              <div className="flex flex-wrap gap-4 mb-6">
+                <div className="flex items-center gap-2 text-text-main text-sm bg-background px-3 py-1.5 rounded-md border border-border/50">
                   <Clock className="w-4 h-4 text-primary" />
                   <span>30 Minutes</span>
                 </div>
-                <div className="flex items-center gap-3 text-text-main text-sm">
+                <div className="flex items-center gap-2 text-text-main text-sm bg-background px-3 py-1.5 rounded-md border border-border/50">
                   <Video className="w-4 h-4 text-primary" />
                   <span>Google Meet</span>
                 </div>
@@ -60,115 +78,114 @@ const Contact: React.FC = () => {
               <a
                 href="#"
                 onClick={(e) => e.preventDefault()}
-                className="inline-flex items-center justify-center w-full bg-primary hover:bg-primary-hover text-white font-medium py-3 rounded-lg transition-all"
+                className="inline-flex items-center justify-center w-full bg-text-main hover:bg-text-main/90 text-background font-medium py-3 rounded-xl transition-all active:scale-[0.98]"
               >
                 Schedule Now
               </a>
             </div>
 
-            <div className="mt-8 flex items-center gap-4 text-text-muted text-sm">
+            <div className="mt-8 flex items-center gap-3 text-text-muted text-sm font-medium">
               <Mail className="w-4 h-4" />
               <span>hello@evoclabs.com</span>
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Right Column: Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <div className="p-8 md:p-10 rounded-2xl border border-border bg-surface">
+            {/* Form Container */}
+            <div className="p-6 md:p-8 lg:p-10 rounded-3xl border border-border bg-surface shadow-2xl shadow-black/5">
               {!isSubmitted ? (
                 <form
                   action="https://formsubmit.co/kishorirnak4u@gmail.com"
                   method="POST"
-                  className="space-y-6"
+                  className="space-y-5"
                   onSubmit={() => setIsSubmitted(true)}
                 >
-                  {/* FormSubmit Settings */}
                   <input type="hidden" name="_captcha" value="false" />
-                  <input
-                    type="hidden"
-                    name="_subject"
-                    value="New Contact Request - EvocLabs"
-                  />
-                  <input
-                    type="hidden"
-                    name="_next"
-                    value="https://evoclabs.com/success"
-                  />
+                  <input type="hidden" name="_subject" value="New Contact Request - EvocLabs" />
+                  <input type="hidden" name="_next" value="https://evoclabs.com/success" />
 
-                  {/* Name */}
-                  <div>
-                    <label className="block text-sm font-medium text-text-main mb-2">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      className="w-full bg-background border border-border rounded-lg px-4 py-3 text-text-main focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-text-muted/50"
-                      placeholder="John Doe"
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {/* Name */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider ml-1">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3 text-text-main focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-text-muted/30 focus:scale-[1.01]"
+                        placeholder="John Doe"
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider ml-1">
+                        Work Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3 text-text-main focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-text-muted/30 focus:scale-[1.01]"
+                        placeholder="john@company.com"
+                      />
+                    </div>
                   </div>
 
-                  {/* Work Email */}
-                  <div>
-                    <label className="block text-sm font-medium text-text-main mb-2">
-                      Work Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      className="w-full bg-background border border-border rounded-lg px-4 py-3 text-text-main focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-text-muted/50"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-
-                  {/* Website + Budget */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-text-main mb-2">
-                        Website URL
+                  {/* Website & Budget */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider ml-1">
+                        Website
                       </label>
                       <input
                         type="url"
                         name="website"
-                        className="w-full bg-background border border-border rounded-lg px-4 py-3 text-text-main focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-text-muted/50"
-                        placeholder="https://"
+                        className="w-full bg-background border border-border rounded-xl px-4 py-3 text-text-main focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-text-muted/30 focus:scale-[1.01]"
+                        placeholder="https://..."
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-sm font-medium text-text-main mb-2">
-                        Monthly Ad Budget
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider ml-1">
+                        Budget
                       </label>
-                      <select
-                        name="budget"
-                        className="w-full bg-background border border-border rounded-lg px-4 py-3 text-text-main focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all appearance-none"
-                      >
-                        <option value="" className="bg-surface">Select Range</option>
-                        <option value="<5k" className="bg-surface">Less than $5k</option>
-                        <option value="5k-20k" className="bg-surface">$5k – $20k</option>
-                        <option value="20k-50k" className="bg-surface">$20k – $50k</option>
-                        <option value="50k+" className="bg-surface">$50k+</option>
-                      </select>
+                      <div className="relative">
+                        <select
+                          name="budget"
+                          className="w-full bg-background border border-border rounded-xl px-4 py-3 text-text-main focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all appearance-none cursor-pointer"
+                        >
+                          <option value="" className="text-text-muted">Select Range</option>
+                          <option value="<5k">Less than $5k</option>
+                          <option value="5k-20k">$5k – $20k</option>
+                          <option value="20k-50k">$20k – $50k</option>
+                          <option value="50k+">$50k+</option>
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted">
+                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
                   {/* Message */}
-                  <div>
-                    <label className="block text-sm font-medium text-text-main mb-2">
-                      How can we help?
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider ml-1">
+                      Goals
                     </label>
                     <textarea
                       name="message"
-                      rows={4}
-                      className="w-full bg-background border border-border rounded-lg px-4 py-3 text-text-main focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none placeholder:text-text-muted/50"
+                      rows={3} // Reduced rows slightly to fit desktop better
+                      className="w-full bg-background border border-border rounded-xl px-4 py-3 text-text-main focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none placeholder:text-text-muted/30 focus:scale-[1.01]"
                       placeholder="Tell us about your goals..."
                     ></textarea>
                   </div>
@@ -176,36 +193,37 @@ const Contact: React.FC = () => {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full bg-text-main text-background font-semibold py-3.5 rounded-lg hover:opacity-90 transition-colors flex items-center justify-center gap-2"
+                    className="group w-full bg-text-main hover:bg-text-secondary text-border font-semibold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/20 active:scale-[0.98]"
                   >
-                    Send Request <ArrowRight className="w-4 h-4" />
+                    Send Request 
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
 
-                  <p className="text-center text-xs text-text-muted mt-4">
-                    No commitment required — we respond within 24 hours.
+                  <p className="text-center text-xs text-text-muted/70">
+                    We usually respond within 24 hours.
                   </p>
                 </form>
               ) : (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="h-full flex flex-col items-center justify-center text-center py-10"
+                  className="h-[480px] flex flex-col items-center justify-center text-center"
                 >
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                    <CheckCircle className="w-8 h-8 text-primary" />
+                  <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 ring-8 ring-primary/5">
+                    <CheckCircle className="w-10 h-10 text-primary" />
                   </div>
 
-                  <h3 className="text-2xl font-semibold text-text-main mb-2">
+                  <h3 className="text-2xl font-bold text-text-main mb-2">
                     Request Received!
-                  </h3>
+                  </h3 >
 
-                  <p className="text-text-muted max-w-xs">
-                    Thanks! Your details have been successfully submitted.
+                  <p className="text-text-muted max-w-[250px] mx-auto mb-8">
+                    Thanks! We've received your details and will be in touch shortly.
                   </p>
 
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="mt-8 text-sm text-primary hover:text-primary-hover underline"
+                    className="text-sm font-medium text-primary hover:text-primary-hover underline decoration-2 underline-offset-4"
                   >
                     Send another request
                   </button>
@@ -213,6 +231,7 @@ const Contact: React.FC = () => {
               )}
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>

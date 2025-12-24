@@ -3,13 +3,11 @@ import React from "react";
 const LogoTicker: React.FC = () => {
   // Using plain text for logos to avoid external SVG dependencies, styled to look like logos
   const logos = [
-    "WHATSAPP",
-    "SHOPIFY",
+    "F-SHIP",
     "GOOGLE ADS",
     "META ADS",
-    "FACEBOOK",
-    "INSTAGRAM",
-    "YOUTUBE",
+    "SHOPIFY",
+    "PHONEPAY",
   ];
 
   return (

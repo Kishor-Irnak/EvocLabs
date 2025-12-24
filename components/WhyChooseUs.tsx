@@ -6,20 +6,20 @@ import BlurText from "./BlurText";
 // --- Data ---
 const benefits = [
   {
-    title: "Transparent Communication",
-    desc: "Weekly sprints and daily updates. You're never left guessing.",
+    title: "No subscription or fixed service fees",
+    desc: "Pay strictly for performance. Our model aligns perfectly with your growth—no hidden monthly retainers.",
   },
   {
-    title: "Custom Strategic Architectures",
-    desc: "No cookie-cutter packages. We build what your specific stage needs.",
+    title: "Zero RTO fee",
+    desc: "Stop losing money on returns. We waive RTO fees so you keep more of your hard-earned revenue.",
   },
   {
-    title: "Outcome-Focused Metrics",
-    desc: "We track CPA, ROAS, and MER. Vanity metrics don't pay bills.",
+    title: "Single unified growth dashboard",
+    desc: "All your metrics in one view. From ad spend to inventory, manage your entire growth operation seamlessly.",
   },
   {
-    title: "Data-Backed Creative",
-    desc: "Our design team iterates ads based on real-time buying data.",
+    title: "Built for profitability, not vanity metrics",
+    desc: "Real ROI over likes. We optimize for net profit, ensuring every rupee spent contributes to your bottom line.",
   },
 ];
 

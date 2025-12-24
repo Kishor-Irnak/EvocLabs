@@ -180,10 +180,10 @@ const Hero = () => {
         </div>
 
         {/* Subhead */}
-        <div className="mb-8 md:mb-14 max-w-2xl px-2">
+        <div className="mb-8  md:mb-14 max-w-2xl px-2">
           <BlurText
             text="We build data-driven performance systems for direct-to-consumer brands. Scale profitably with clarity, not guesswork."
-            className="text-sm sm:text-base md:text-xl text-text-muted/90 leading-relaxed text-center font-light"
+            className="text-sm sm:text-base md:text-xl text-text-secondary leading-relaxed text-center font-light"
             delay={0.3}
           />
         </div>
@@ -203,7 +203,7 @@ const Hero = () => {
             transition={{ duration: 0.2 }}
           >
             <div className="relative z-10 flex items-center justify-center gap-2">
-              <span>Start Project</span>
+              <span>Book a demo</span>
               <ArrowRight 
                 size={16} 
                 className="transition-transform duration-300 group-hover:translate-x-1" 
@@ -217,24 +217,7 @@ const Hero = () => {
             />
           </motion.button>
 
-          {/* Secondary Button */}
-          <motion.button 
-            className="group relative px-6 py-3 rounded-lg border border-border/40 bg-transparent text-text-main font-medium text-sm overflow-hidden backdrop-blur-sm w-full sm:w-auto"
-            whileHover={{ scale: 1.02, borderColor: "rgba(255, 255, 255, 0.2)" }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="relative z-10 flex items-center justify-center gap-2">
-              <Play size={14} className="fill-current transition-transform duration-300 group-hover:scale-110" />
-              <span>See How It Works</span>
-            </div>
-            <motion.div
-              className="absolute inset-0 bg-white/5"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.button>
+
         </motion.div>
 
         {/* Dashboard Preview Image */}

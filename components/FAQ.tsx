@@ -6,20 +6,28 @@ import BlurText from "./BlurText";
 
 const faqs: FaqItem[] = [
   { 
-    question: "How long does it take to see results?", 
-    answer: "Typically, we see initial traction within the first 14-21 days as our testing phase concludes. Significant ROI improvements usually stabilize by month 2-3 once winning creatives are scaled." 
+    question: "What is Evoc Labz?", 
+    answer: "Evoc Labz is a performance-driven eCommerce SaaS platform that helps brands grow profitably by managing checkout, orders, ads, operations, and insights from one dashboard." 
   },
   { 
-    question: "What makes Evoc Labs different from other agencies?", 
-    answer: "We don't just run ads; we build full-funnel profit engines. Most agencies focus on vanity metrics like 'Clicks'. We focus on Contribution Margin and Net Profit. Plus, our creative team is in-house." 
+    question: "What pricing model does Evoc Labz follow?", 
+    answer: "No subscription. No service fee. Only 4% commission on delivered orders. Zero charges on RTO or failed deliveries." 
   },
   { 
-    question: "Do you offer creative services?", 
-    answer: "Yes. In 2024, creative is the new targeting. We have an in-house team of editors and designers who produce high-converting UGC and static ads specifically for paid social." 
+    question: "What kind of brands can use Evoc Labz?", 
+    answer: "Evoc Labz is built for: D2C brands, COD-heavy businesses, Dropshipping & hybrid brands, Shopify-based stores, and brands looking to scale profitably." 
   },
   { 
-    question: "What are your pricing models?", 
-    answer: "We work on a hybrid model: a base retainer + a performance fee based on ad spend or revenue generated. This aligns our incentives with yours—we only win when you grow." 
+    question: "Does Evoc Labz integrate with Shopify?", 
+    answer: "Yes. Evoc Labz integrates seamlessly with Shopify and related tools." 
+  },
+  { 
+    question: "Will Evoc Labz help reduce RTO?", 
+    answer: "Yes. Our systems are built to reduce fake orders, improve order confirmation, and optimize COD performance." 
+  },
+  { 
+    question: "Is Evoc Labz suitable for new brands?", 
+    answer: "Yes. It’s especially useful for new brands that want to grow without burning money on fixed costs." 
   }
 ];
 
@@ -31,7 +39,7 @@ const FAQ: React.FC = () => {
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-16">
             <BlurText
-               text="Common Questions"
+               text="Frequently asked questions"
                className="text-3xl md:text-5xl font-semibold mb-4 text-text-main tracking-tight"
             />
           <div className="mt-4">

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { MessageSquare, PenTool, Rocket } from "lucide-react";
+import { Stethoscope, Target, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import BlurText from "./BlurText";
 import { AnimatedBeam } from "./AnimatedBeam";
@@ -13,23 +13,23 @@ const Process: React.FC = () => {
   const steps = [
     {
       id: 1,
-      title: "Consultation",
-      description: "We meet to understand your vision, goals, and brand voice.",
-      icon: <MessageSquare size={18} />,
+      title: "Breakpoint Diagnosis",
+      description: "We identify what's blocking your sales flow and spot every bottleneck hurting performance.",
+      icon: <Stethoscope size={18} />,
       ref: step1Ref,
     },
     {
       id: 2,
-      title: "Strategy & Design",
-      description: "Our team crafts a tailored roadmap and visual assets.",
-      icon: <PenTool size={18} />,
+      title: "Strategy & Execution",
+      description: "We build funnels, run ads, deploy calling teams, and optimize delivery for smooth scaling.",
+      icon: <Target size={18} />,
       ref: step2Ref,
     },
     {
       id: 3,
-      title: "Launch & Scale",
-      description: "We execute the plan and optimize for continuous growth.",
-      icon: <Rocket size={18} />,
+      title: "Performance Scaling",
+      description: "We grow your brand on a commission model improving conversions and scaling profitably.",
+      icon: <TrendingUp size={18} />,
       ref: step3Ref,
     },
   ];
@@ -42,7 +42,7 @@ const Process: React.FC = () => {
         <div className="text-center mb-16 md:mb-24">
           <div className="mb-4">
             <BlurText
-              text="Get Set Up in Minutes"
+              text="HOW WE SCALE"
               className="text-3xl md:text-4xl font-semibold text-text-main"
             />
           </div>

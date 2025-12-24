@@ -82,7 +82,7 @@ const Navbar: React.FC = () => {
             href="#contact"
             className="bg-text-main text-background text-sm font-medium px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity"
           >
-            Book a Call
+            Log in
           </a>
         </div>
 
@@ -121,7 +121,7 @@ const Navbar: React.FC = () => {
               onClick={handleLinkClick}
               className="bg-primary text-white w-full py-3 rounded-lg font-medium text-center hover:bg-primary-hover transition-colors"
             >
-              Book a Call
+              Log in
             </a>
           </motion.div>
         )}

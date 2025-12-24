@@ -20,6 +20,8 @@ import {
   ArrowDownRight,
   MoreHorizontal
 } from "lucide-react";
+// @ts-ignore
+import logo from "../assets/evoclabs_mini_logo.png";
 
 const data = [
   { name: "Jan", value: 3000, profit: 1400 },
@@ -62,8 +64,8 @@ const DashboardPreview: React.FC = () => {
     <div className="w-full h-auto min-h-[500px] md:min-h-0 md:h-auto md:aspect-[16/10] bg-[#0A0A0A] relative flex overflow-hidden rounded-xl border border-white/10 shadow-2xl">
       {/* Sidebar - Minimized */}
       <div className="w-16 border-r border-white/5 flex flex-col items-center py-6 gap-4 bg-[#0A0A0A] z-20">
-        <div className="w-8 h-8 rounded-lg bg-primary mb-4 flex items-center justify-center">
-            <div className="w-4 h-4 bg-white rounded-sm opacity-90" />
+        <div className="w-6 h-6  mb-4 flex items-center justify-center overflow-hidden">
+            <img src={logo} alt="Logo" className="w-full h-full object-cover" />
         </div>
         <SidebarItem icon={Home} />
         <SidebarItem icon={BarChart3} active />
@@ -101,7 +103,7 @@ const DashboardPreview: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <StatCard 
                     title="Total Revenue" 
-                    value="$128,450.00" 
+                    value="₹128,450.00" 
                     change="+12.5%" 
                     isPositive={true} 
                 />
