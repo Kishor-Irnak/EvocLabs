@@ -118,7 +118,7 @@ const WhyChooseUs: React.FC = () => {
                   loop
                   muted
                   playsInline
-                  src="rocket_video.mp4"
+                  src="/rocket_video.mp4"
                 />
               </div>
             </div>
