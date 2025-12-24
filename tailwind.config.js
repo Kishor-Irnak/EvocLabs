@@ -23,6 +23,9 @@ export default {
         },
         border: "var(--border)",
       },
+      backgroundImage: {
+        "subtle-grid": "linear-gradient(to right, #27272A 1px, transparent 1px), linear-gradient(to bottom, #27272A 1px, transparent 1px)",
+      },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
