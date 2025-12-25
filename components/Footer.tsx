@@ -1,5 +1,5 @@
 import React from "react";
-import { Rocket, Heart } from "lucide-react";
+import { Rocket, Heart, Instagram, Linkedin, Twitter } from "lucide-react";
 import EvocLogo from "../assets/EvocLab_Logo.png";
 
 const Footer: React.FC = () => {
@@ -10,7 +10,11 @@ const Footer: React.FC = () => {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-6">
               <div className="w-8 h-8 rounded-lg bg-surface border border-border flex items-center justify-center">
-                <img src={EvocLogo} alt="Evoc Labs Logo" className="w-5 h-5 opacity-80" />
+                <img
+                  src={EvocLogo}
+                  alt="Evoc Labs Logo"
+                  className="w-5 h-5 opacity-80"
+                />
               </div>
               <span className="font-semibold text-lg tracking-tight text-text-main">
                 Evoc Labs
@@ -21,13 +25,33 @@ const Footer: React.FC = () => {
               fluff, just profit.
             </p>
             <div className="flex gap-4">
-              {/* Social placeholders */}
-              <div className="w-10 h-10 rounded-full bg-surface flex items-center justify-center border border-border hover:border-primary/50 hover:text-primary transition-colors cursor-pointer text-text-secondary">
-                IG
-              </div>
-              <div className="w-10 h-10 rounded-full bg-surface flex items-center justify-center border border-border hover:border-primary/50 hover:text-primary transition-colors cursor-pointer text-text-secondary">
-                LI
-              </div>
+              <a
+                href="https://www.instagram.com/evoc.labz?igsh=N282c25vNGc5NG1k"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-surface flex items-center justify-center border border-border hover:border-primary/50 hover:text-primary transition-colors cursor-pointer text-text-secondary"
+                aria-label="Instagram"
+              >
+                <Instagram size={18} />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/evoc-labs/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-surface flex items-center justify-center border border-border hover:border-primary/50 hover:text-primary transition-colors cursor-pointer text-text-secondary"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={18} />
+              </a>
+              <a
+                href="https://x.com/evoclabz?s=21"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-surface flex items-center justify-center border border-border hover:border-primary/50 hover:text-primary transition-colors cursor-pointer text-text-secondary"
+                aria-label="X (Twitter)"
+              >
+                <Twitter size={18} />
+              </a>
             </div>
           </div>
 
