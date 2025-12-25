@@ -60,26 +60,31 @@ const Footer: React.FC<FooterProps> = ({ onCareersClick }) => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-text-main mb-6">Services</h4>
+            <h4 className="font-semibold text-text-main mb-6">Product</h4>
             <ul className="space-y-4 text-sm text-text-muted">
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Performance Marketing
+                  Evoc Checkout
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Meta Ads
+                  Evoc Voxly
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  Google Ads
+                  Evoc Inventory
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition-colors">
-                  SEO
+                  Evoc Logistics
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Evoc RTO Detector
                 </a>
               </li>
             </ul>
@@ -89,8 +94,43 @@ const Footer: React.FC<FooterProps> = ({ onCareersClick }) => {
             <h4 className="font-semibold text-text-main mb-6">Company</h4>
             <ul className="space-y-4 text-sm text-text-muted">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a
+                  href="#why-us"
+                  className="hover:text-primary transition-colors"
+                >
                   About
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#process"
+                  className="hover:text-primary transition-colors"
+                >
+                  Process
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#results"
+                  className="hover:text-primary transition-colors"
+                >
+                  Results
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  className="hover:text-primary transition-colors"
+                >
+                  Reviews
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#founder"
+                  className="hover:text-primary transition-colors"
+                >
+                  Founder
                 </a>
               </li>
               <li>
@@ -102,18 +142,16 @@ const Footer: React.FC<FooterProps> = ({ onCareersClick }) => {
                 </button>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Case Studies
+                <a href="#faq" className="hover:text-primary transition-colors">
+                  FAQ
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <a
+                  href="#contact"
+                  className="hover:text-primary transition-colors"
+                >
                   Contact
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Privacy Policy
                 </a>
               </li>
             </ul>
