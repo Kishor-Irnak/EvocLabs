@@ -43,91 +43,58 @@ const clients = [
   brand15,
 ];
 
-// 4 sets for smoother seamless loop
-const duplicatedClients = [...clients, ...clients, ...clients, ...clients];
-
-const wrap = (min: number, max: number, v: number) => {
-  const rangeSize = max - min;
-  return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
-};
-
 const LogoStrip = ({
-  baseVelocity = 20,
+  reverse = false,
   className = "",
 }: {
-  baseVelocity: number;
+  reverse?: boolean;
   className?: string;
 }) => {
-  const baseX = useMotionValue(0);
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, {
-    damping: 50,
-    stiffness: 400,
-  });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
-    clamp: false,
-  });
-
-  // Wrap at -25% (since we have 4 sets, one set is 25% of width)
-  // We move FROM 0 TO -25% then wrap back to 0
-  const x = useTransform(baseX, (v) => `${wrap(0, -25, v)}%`);
-
-  useAnimationFrame((t, delta) => {
-    let moveBy = baseVelocity * (delta / 1000);
-
-    // Increase speed based on scroll velocity (up or down), preventing direction reversal
-    // If scrolling, velocityFactor gives a value (e.g. 5). scale speed by (1 + 5).
-    moveBy += moveBy * Math.abs(velocityFactor.get());
-
-    baseX.set(baseX.get() + moveBy);
-  });
+  const MarqueeRow = ({ isFocused = false }: { isFocused?: boolean }) => (
+    <div
+      className={`${
+        reverse ? "animate-marquee-reverse" : "animate-marquee"
+      } whitespace-nowrap flex items-center`}
+    >
+      {Array(8)
+        .fill(clients)
+        .flat()
+        .map((client, i) => (
+          <div
+            key={i}
+            className={`flex-shrink-0 px-12 transition-opacity duration-500 ${
+              isFocused ? "opacity-100" : "opacity-20"
+            }`}
+          >
+            <img
+              src={client}
+              alt="Brand Logo"
+              className="h-12 md:h-16 w-auto object-contain"
+            />
+          </div>
+        ))}
+    </div>
+  );
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden w-full ${className}`}>
       {/* Layer 1: Dimmed Background */}
-      <motion.div
-        className="flex gap-8 flex-nowrap opacity-20 select-none pointer-events-none"
-        style={{ x }}
-      >
-        {duplicatedClients.map((client, i) => (
-          <div
-            key={i}
-            className="flex items-center justify-center px-4 min-w-[200px]"
-          >
-            <img
-              src={client}
-              alt="Brand Logo"
-              className="h-16 w-auto object-contain pointer-events-auto"
-            />
-          </div>
-        ))}
-      </motion.div>
+      <div className="relative z-0 select-none pointer-events-none">
+        <MarqueeRow isFocused={false} />
+      </div>
 
       {/* Layer 2: Focused Foreground (Masked) */}
-      <motion.div
-        className="flex gap-8 flex-nowrap absolute top-0 left-0 w-full h-full select-none pointer-events-none"
+      <div
+        className="absolute inset-0 z-10 select-none pointer-events-none"
         style={{
-          x,
           maskImage:
-            "linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%)",
+            "linear-gradient(to right, transparent 0%, black 35%, black 65%, transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%)",
+            "linear-gradient(to right, transparent 0%, black 35%, black 65%, transparent 100%)",
         }}
       >
-        {duplicatedClients.map((client, i) => (
-          <div
-            key={i}
-            className="flex items-center justify-center px-4 min-w-[200px]"
-          >
-            <img
-              src={client}
-              alt="Brand Logo"
-              className="h-16 w-auto object-contain pointer-events-auto"
-            />
-          </div>
-        ))}
-      </motion.div>
+        <MarqueeRow isFocused={true} />
+      </div>
     </div>
   );
 };
@@ -140,22 +107,48 @@ const Testimonials: React.FC = () => {
       <div className="absolute inset-0 bg-transparent z-10 pointer-events-none bg-gradient-to-r from-background via-transparent to-background" />
 
       <div className="max-w-7xl mx-auto px-6 text-center relative z-20 mb-16">
-        <p className="text-sm font-medium text-text-secondary uppercase tracking-wider">
+        <p className="text-sm font-medium text-slate-500 uppercase tracking-[0.2em]">
           Brands we work with
         </p>
       </div>
 
-      {/* 3D Container */}
-      <div className="relative w-full max-w-[120vw] -rotate-3 skew-y-3 scale-110 opacity-80 hover:opacity-100 transition-opacity duration-500">
+      {/* 3D Container - Scaled and Rotated */}
+      <div className="relative w-full max-w-[140vw] -rotate-3 skew-y-1 scale-110">
         {/* Strip 1 - Left */}
-        <LogoStrip baseVelocity={-2} className="mb-6 opacity-60" />
+        <LogoStrip reverse={false} className="mb-8 opacity-60" />
 
         {/* Strip 2 (Main) - Right */}
-        <LogoStrip baseVelocity={2} className="mb-6 scale-110 z-10" />
+        <LogoStrip reverse={true} className="mb-8 scale-110 z-10" />
 
         {/* Strip 3 - Left */}
-        <LogoStrip baseVelocity={-2} className="opacity-60" />
+        <LogoStrip reverse={false} className="opacity-60" />
       </div>
+
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-reverse {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+        .animate-marquee {
+          animation: marquee 60s linear infinite;
+          width: fit-content;
+        }
+        .animate-marquee-reverse {
+          animation: marquee-reverse 60s linear infinite;
+          width: fit-content;
+        }
+        
+        /* Speed up on Mobile */
+        @media (max-width: 768px) {
+          .animate-marquee, .animate-marquee-reverse {
+            animation-duration: 30s;
+          }
+        }
+      `}</style>
     </section>
   );
 };
