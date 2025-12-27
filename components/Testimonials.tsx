@@ -10,17 +10,37 @@ import {
   useAnimationFrame,
 } from "framer-motion";
 
+// Importing Brand Logos
+import brand1 from "../assets/Brands_Logo/Artboard 1.png";
+import brand2 from "../assets/Brands_Logo/Artboard 2.png";
+import brand3 from "../assets/Brands_Logo/Artboard 3.png";
+import brand4 from "../assets/Brands_Logo/Artboard 4.png";
+import brand5 from "../assets/Brands_Logo/Artboard 5.png";
+import brand6 from "../assets/Brands_Logo/Artboard 6.png";
+import brand7 from "../assets/Brands_Logo/Artboard 7.png";
+import brand8 from "../assets/Brands_Logo/Artboard 8.png";
+import brand9 from "../assets/Brands_Logo/Artboard 9.png";
+import brand11 from "../assets/Brands_Logo/Artboard 11.png";
+import brand12 from "../assets/Brands_Logo/Artboard 12.png";
+import brand13 from "../assets/Brands_Logo/Artboard 13.png";
+import brand14 from "../assets/Brands_Logo/Artboard 14.png";
+import brand15 from "../assets/Brands_Logo/Artboard 15.png";
+
 const clients = [
-  { name: "Acme Corp", icon: Briefcase },
-  { name: "Nebula", icon: Hexagon },
-  { name: "Velocity", icon: Triangle },
-  { name: "Turing", icon: Circle },
-  { name: "Orbit", icon: Square },
-  { name: "Flux", icon: Hexagon },
-  { name: "Vertex", icon: Triangle },
-  { name: "Zenith", icon: Briefcase },
-  { name: "Pinnacle", icon: Circle },
-  { name: "Apex", icon: Square },
+  brand1,
+  brand2,
+  brand3,
+  brand4,
+  brand5,
+  brand6,
+  brand7,
+  brand8,
+  brand9,
+  brand11,
+  brand12,
+  brand13,
+  brand14,
+  brand15,
 ];
 
 // 4 sets for smoother seamless loop
@@ -32,7 +52,7 @@ const wrap = (min: number, max: number, v: number) => {
 };
 
 const LogoStrip = ({
-  baseVelocity = 100,
+  baseVelocity = 20,
   className = "",
 }: {
   baseVelocity: number;
@@ -53,34 +73,58 @@ const LogoStrip = ({
   // We move FROM 0 TO -25% then wrap back to 0
   const x = useTransform(baseX, (v) => `${wrap(0, -25, v)}%`);
 
-  const directionFactor = useRef<number>(1);
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
+    let moveBy = baseVelocity * (delta / 1000);
 
-    // Apply scroll velocity (make it faster when scrolling)
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
-    }
-
-    moveBy += directionFactor.current * moveBy * Math.abs(velocityFactor.get());
+    // Increase speed based on scroll velocity (up or down), preventing direction reversal
+    // If scrolling, velocityFactor gives a value (e.g. 5). scale speed by (1 + 5).
+    moveBy += moveBy * Math.abs(velocityFactor.get());
 
     baseX.set(baseX.get() + moveBy);
   });
 
   return (
-    <div className={`flex relative overflow-hidden ${className}`}>
-      <motion.div className="flex gap-8 flex-nowrap" style={{ x }}>
+    <div className={`relative overflow-hidden ${className}`}>
+      {/* Layer 1: Dimmed Background */}
+      <motion.div
+        className="flex gap-8 flex-nowrap opacity-20 select-none pointer-events-none"
+        style={{ x }}
+      >
         {duplicatedClients.map((client, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 px-8 py-4 bg-surface/50  rounded-xl backdrop-blur-sm whitespace-nowrap min-w-[200px]"
+            className="flex items-center justify-center px-4 min-w-[200px]"
           >
-            <client.icon className="w-5 h-5 text-primary opacity-80" />
-            <span className="font-semibold text-text-main text-lg tracking-tight">
-              {client.name}
-            </span>
+            <img
+              src={client}
+              alt="Brand Logo"
+              className="h-16 w-auto object-contain pointer-events-auto"
+            />
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Layer 2: Focused Foreground (Masked) */}
+      <motion.div
+        className="flex gap-8 flex-nowrap absolute top-0 left-0 w-full h-full select-none pointer-events-none"
+        style={{
+          x,
+          maskImage:
+            "linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%)",
+        }}
+      >
+        {duplicatedClients.map((client, i) => (
+          <div
+            key={i}
+            className="flex items-center justify-center px-4 min-w-[200px]"
+          >
+            <img
+              src={client}
+              alt="Brand Logo"
+              className="h-16 w-auto object-contain pointer-events-auto"
+            />
           </div>
         ))}
       </motion.div>
