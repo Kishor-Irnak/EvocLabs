@@ -151,16 +151,16 @@ const DashboardPreview: React.FC = () => {
               isPositive={true}
             />
             <StatCard
-              title="Active Users"
-              value="24.5k"
+              title="DELIVERY"
+              value="90%"
               change="+5%"
               isPositive={true}
             />
             <StatCard
-              title="Bounce Rate"
-              value="42%"
-              change="-2%"
-              isPositive={false}
+              title="ORDERS"
+              value="12,458"
+              change="+12%"
+              isPositive={true}
             />
           </div>
 
