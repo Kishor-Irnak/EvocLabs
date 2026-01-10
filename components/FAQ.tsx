@@ -37,7 +37,17 @@ const faqs: FaqItem[] = [
   },
 ];
 
-const FAQ: React.FC = () => {
+interface FAQProps {
+  title?: string;
+  description?: string;
+  items?: FaqItem[];
+}
+
+const FAQ: React.FC<FAQProps> = ({
+  title = "Frequently asked questions",
+  description = "Everything you need to know about working with us.",
+  items = faqs,
+}) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -45,12 +55,12 @@ const FAQ: React.FC = () => {
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-16">
           <BlurText
-            text="Frequently asked questions"
+            text={title}
             className="text-3xl md:text-5xl font-semibold mb-4 text-text-main tracking-tight"
           />
           <div className="mt-4">
             <BlurText
-              text="Everything you need to know about working with us."
+              text={description}
               className="text-text-muted inline-block"
               delay={0.2}
             />
@@ -58,7 +68,7 @@ const FAQ: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {items.map((faq, index) => (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

@@ -4,7 +4,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import BlurText from "./BlurText";
 import DashboardPreview from "./DashboardPreview";
 
-const Hero = () => {
+interface HeroProps {
+  onBookDemoClick?: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onBookDemoClick }) => {
   const { scrollY } = useScroll();
   const scale = useTransform(scrollY, [0, 300], [0.85, 1]);
   const opacity = useTransform(scrollY, [0, 300], [0.8, 1]);
@@ -248,8 +252,8 @@ const Hero = () => {
           className="flex flex-col sm:flex-row gap-3 mb-12 md:mb-24 w-full sm:w-auto px-4 sm:px-0"
         >
           {/* Primary Button */}
-          <motion.a
-            href="#contact"
+          <motion.button
+            onClick={onBookDemoClick}
             className="group relative px-6 py-3 rounded-lg bg-white text-background font-medium text-sm overflow-hidden w-full sm:w-auto inline-flex items-center justify-center"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -268,7 +272,7 @@ const Hero = () => {
               whileHover={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
             />
-          </motion.a>
+          </motion.button>
         </motion.div>
 
         {/* Dashboard Preview Image */}

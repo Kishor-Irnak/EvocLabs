@@ -17,10 +17,13 @@ import Process from "./components/Process";
 
 import Careers from "./components/Careers";
 import ComingSoon from "./components/ComingSoon";
+import BookDemo from "./components/BookDemo";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [view, setView] = useState<"home" | "careers" | "login">("home");
+  const [view, setView] = useState<"home" | "careers" | "login" | "book-demo">(
+    "home"
+  );
 
   return (
     <div className="bg-background min-h-screen text-text-main font-sans selection:bg-primary/30 selection:text-primary-hover">
@@ -45,7 +48,12 @@ function App() {
           />
           {view === "home" ? (
             <main>
-              <Hero />
+              <Hero
+                onBookDemoClick={() => {
+                  setView("book-demo");
+                  window.scrollTo(0, 0);
+                }}
+              />
               <MarketingProfitPages />
               <LogoTicker />
               <Process />
@@ -59,6 +67,8 @@ function App() {
             </main>
           ) : view === "careers" ? (
             <Careers onBack={() => setView("home")} />
+          ) : view === "book-demo" ? (
+            <BookDemo onBack={() => setView("home")} />
           ) : (
             <ComingSoon onBack={() => setView("home")} />
           )}
