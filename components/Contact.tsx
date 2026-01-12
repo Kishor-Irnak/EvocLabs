@@ -38,9 +38,12 @@ const Contact: React.FC = () => {
     setError('');
     
     try {
-      const apiUrl = typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
-        ? 'https://evoc-labz-backend.onrender.com/api/book-demo' // Your actual Render URL
-        : '/api/book-demo';
+      const apiBase =
+        (import.meta as any)?.env?.VITE_API_BASE_URL ||
+        (typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+          ? 'https://evoc-labz-backend.onrender.com'
+          : 'http://localhost:5000');
+      const apiUrl = `${apiBase.replace(/\/+$/, '')}/api/book-demo`;
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
