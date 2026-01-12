@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
   <head>
+    <script>
+      (function () {
+        // Redirect all 404s to the SPA entry, preserving the path in ?p=
+        var l = window.location;
+        var preserved = l.pathname + l.search + l.hash;
+        var target = '/?p=' + encodeURIComponent(preserved);
+        // Avoid redirect loop if already at root with ?p=
+        if (!l.search.includes('p=')) {
+          l.replace(target);
+        }
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Evoc Labs</title>
@@ -95,9 +107,6 @@
       }
     </script>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+  <body></body>
   </html>
 *** End Patch```}아요}이가}어요}아요}요}죠}습니다} 제가} tool error? The apply patch content ends with extra characters?
