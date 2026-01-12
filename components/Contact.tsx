@@ -12,6 +12,7 @@ import BlurText from "./BlurText";
 
 const Contact: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
