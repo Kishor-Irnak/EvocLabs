@@ -21,7 +21,7 @@ const Footer: React.FC<FooterProps> = ({ onCareersClick }) => {
                 />
               </div>
               <span className="font-semibold text-lg tracking-tight text-text-main">
-                Evoc Labs
+                Evoc Labs V.2
               </span>
             </div>
             <p className="text-text-muted max-w-sm mb-6 leading-relaxed">
