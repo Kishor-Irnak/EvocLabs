@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Evoc Labs</title>
     <script>
       (function () {
-        // If redirected here from 404.html with ?p=originalPath, restore the path
-        var params = new URLSearchParams(window.location.search);
-        var p = params.get('p');
-        if (p) {
-          history.replaceState(null, '', p);
+        // Redirect all 404s to the SPA entry, preserving the path in ?p=
+        var l = window.location;
+        var preserved = l.pathname + l.search + l.hash;
+        var target = '/?p=' + encodeURIComponent(preserved);
+        // Avoid redirect loop if already at root with ?p=
+        if (!l.search.includes('p=')) {
+          l.replace(target);
         }
       })();
     </script>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evoc Labs</title>
     <meta
       name="description"
       content="Evoc Labs is a technology company building proprietary performance systems and software for D2C brand growth. Scale profitably with our data-driven tech and performance infrastructure."
     />
-
     <meta
       name="keywords"
       content="Evoc Labs, e-commerce software, growth technology, performance marketing systems, D2C growth tech, ad management software, performance infrastructure, e-commerce data systems"
     />
-
     <meta name="robots" content="index, follow" />
-
     <link rel="canonical" href="https://evoclabs.com/" />
-
     <!-- Open Graph (Social Sharing) -->
     <meta property="og:type" content="website" />
     <meta
@@ -44,7 +41,6 @@
       property="og:image"
       content="https://i.postimg.cc/3wWLDB2q/Instagram-story-16.png"
     />
-
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -59,7 +55,6 @@
       name="twitter:image"
       content="https://i.postimg.cc/3wWLDB2q/Instagram-story-16.png"
     />
-
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -71,7 +66,6 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
       rel="stylesheet"
     />
-
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -112,10 +106,7 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="/assets/index-D8B7yKqZ.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DpDEnI9A.css">
   </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>
+  <body></body>
+  </html>
+*** End Patch```}아요}이가}어요}아요}요}죠}습니다} 제가} tool error? The apply patch content ends with extra characters?
