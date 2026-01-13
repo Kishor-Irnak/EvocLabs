@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { CheckCircle, ArrowRight, Mail, Globe, DollarSign, Target } from "lucide-react";
+import { CheckCircle, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 import Testimonials from "./Testimonials";
 import Services from "./Services";
 
@@ -12,59 +14,81 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState({
-    name: '',
-    workEmail: '',
-    website: '',
-    budget: '',
-    goals: ''
+    name: "",
+    phoneNumber: "",
+    category: "",
+    agreedToTerms: false,
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: type === "checkbox" ? checked : value,
     }));
-    if (error) setError('');
+    if (error) setError("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.agreedToTerms) {
+      setError("Please agree to T&C and Privacy Policy");
+      return;
+    }
+
     setIsLoading(true);
-    setError('');
-    
+    setError("");
+
     try {
+      // Save to Firebase Firestore
+      const formSubmissionData = {
+        name: formData.name,
+        phoneNumber: formData.phoneNumber,
+        category: formData.category,
+        formType: "book-demo",
+        timestamp: serverTimestamp(),
+        createdAt: new Date().toISOString(),
+      };
+
+      await addDoc(collection(db, "formSubmissions"), formSubmissionData);
+
+      // Also send to existing API endpoint
       const apiBase =
         (import.meta as any)?.env?.VITE_API_BASE_URL ||
-        (typeof window !== 'undefined' && window.location.hostname !== 'localhost'
-          ? 'https://evoc-labz-backend.onrender.com'
-          : 'http://localhost:5000');
-      const apiUrl = `${apiBase.replace(/\/+$/, '')}/api/book-demo`;
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          workEmail: formData.workEmail,
-          website: formData.website,
-          budget: formData.budget,
-          goals: formData.goals
-        }),
-      });
-      
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
-        const result = await response.json();
-        setError(result.error || 'Failed to submit form. Please try again.');
+        (typeof window !== "undefined" &&
+        window.location.hostname !== "localhost"
+          ? "https://evoc-labz-backend.onrender.com"
+          : "http://localhost:5000");
+      const apiUrl = `${apiBase.replace(/\/+$/, "")}/api/book-demo`;
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formSubmissionData),
+        });
+
+        if (!response.ok) {
+          const result = await response.json();
+          console.warn("API submission failed:", result.error);
+        }
+      } catch (apiErr) {
+        console.warn("API submission error:", apiErr);
       }
+
+      setIsSubmitted(true);
     } catch (err) {
-      console.error('Error submitting form:', err);
-      setError('An error occurred. Please try again.');
+      console.error("Error submitting form:", err);
+      setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -105,7 +129,7 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
 
       {/* Main Content */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center min-h-[calc(100vh-180px)]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-14 items-center min-h-[calc(100vh-180px)]">
           {/* Left Side: Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -114,20 +138,16 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
             className="w-full max-w-lg mx-auto lg:mx-0"
           >
             {!isSubmitted ? (
-              <div className="space-y-3.5">
+              <div className="space-y-8">
                 <div>
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-main tracking-tight leading-[1.1]">
-                    Ready to ignite your growth?
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-main tracking-tight leading-[1.1]">
+                    Powering Online <br />
+                    Growth for D2C <br />
+                    Brands
                   </h1>
-                  <p className="text-text-muted mt-3 max-w-lg">
-                    Whether you're ready to scale aggressively or just need a second opinion on your current ad stack — we're here to help.
-                  </p>
                 </div>
 
-                <form
-                  onSubmit={handleSubmit}
-                  className="space-y-4"
-                >
+                <form onSubmit={handleSubmit} className="space-y-6">
                   {error && (
                     <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-red-500 text-sm">
                       {error}
@@ -135,87 +155,69 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
                   )}
 
                   {/* Name */}
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-text-main">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-text-main flex items-center gap-1">
                       Your Name <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full bg-surface border border-border rounded-lg pl-10 pr-3.5 py-2.5 text-sm text-text-main focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text-muted/40"
-                        placeholder="John Doe"
-                      />
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-                    </div>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-sm text-text-main focus:border-text-main focus:ring-0 outline-none transition-all placeholder:text-text-muted/60"
+                      placeholder="Select Your Name"
+                    />
                   </div>
 
                   {/* Phone */}
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-text-main flex items-center gap-2">
-                      <span className="text-red-500">*</span>
-                      Work Email
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-text-main flex items-center gap-1">
+                      Phone Number <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
+                    <div className="flex gap-3">
+                      <div className="bg-surface border border-border rounded-lg px-3 py-3 text-sm text-text-main font-medium min-w-[60px] flex items-center justify-center">
+                        +91
+                      </div>
                       <input
-                        type="email"
-                        name="workEmail"
-                        value={formData.workEmail}
+                        type="tel"
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
                         onChange={handleInputChange}
                         required
-                        className="w-full bg-surface border border-border rounded-lg pl-10 pr-3.5 py-2.5 text-sm text-text-main focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text-muted/40"
-                        placeholder="john@company.com"
+                        className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-sm text-text-main focus:border-text-main focus:ring-0 outline-none transition-all placeholder:text-text-muted/60"
+                        placeholder="Enter 10 Digit Phone Number"
                       />
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                     </div>
                   </div>
 
-                  {/* Website */}
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-text-main flex items-center gap-2">
+                  {/* Category */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-text-main flex items-center gap-1">
+                      Category of products you sell?{" "}
                       <span className="text-red-500">*</span>
-                      Website
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="url"
-                        name="website"
-                        value={formData.website}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full bg-surface border border-border rounded-lg pl-10 pr-3.5 py-2.5 text-sm text-text-main focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text-muted/40"
-                        placeholder="https://..."
-                      />
-                      <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-                    </div>
-                  </div>
-
-                  {/* Budget */}
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-text-main flex items-center gap-2">
-                      <span className="text-red-500">*</span>
-                      Budget
                     </label>
                     <div className="relative">
                       <select
-                        name="budget"
-                        value={formData.budget}
+                        name="category"
+                        value={formData.category}
                         onChange={handleInputChange}
                         required
-                        className="w-full bg-surface border border-border rounded-lg pl-10 pr-8 py-2.5 text-sm text-text-main focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer"
+                        className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-sm text-text-main focus:border-text-main focus:ring-0 outline-none transition-all appearance-none cursor-pointer placeholder:text-text-muted/60"
                       >
-                        <option value="" disabled>Select Range</option>
-                        <option value="under-10k">Under $10,000</option>
-                        <option value="10k-50k">$10,000 - $50,000</option>
-                        <option value="50k-100k">$50,000 - $100,000</option>
-                        <option value="100k-500k">$100,000 - $500,000</option>
-                        <option value="over-500k">Over $500,000</option>
+                        <option value="" disabled>
+                          Select
+                        </option>
+                        <option value="fashion">Fashion & Apparel</option>
+                        <option value="beauty">Beauty & Personal Care</option>
+                        <option value="electronics">
+                          Electronics & Gadgets
+                        </option>
+                        <option value="home">Home & Living</option>
+                        <option value="food">Food & Beverage</option>
+                        <option value="other">Other</option>
                       </select>
-                      <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-                      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted">
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted">
                         <svg
                           className="w-4 h-4"
                           fill="none"
@@ -227,47 +229,58 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
                             strokeLinejoin="round"
                             strokeWidth="2"
                             d="M19 9l-7 7-7-7"
-                          ></path>
+                          />
                         </svg>
                       </div>
                     </div>
                   </div>
 
-                  {/* Goals */}
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-text-main flex items-center gap-2">
-                      <span className="text-red-500">*</span>
-                      Goals
-                    </label>
-                    <div className="relative">
-                      <textarea
-                        name="goals"
-                        value={formData.goals}
+                  {/* Terms */}
+                  <div className="flex items-center gap-3">
+                    <div className="relative flex items-center">
+                      <input
+                        type="checkbox"
+                        name="agreedToTerms"
+                        checked={formData.agreedToTerms}
                         onChange={handleInputChange}
-                        required
-                        rows={4}
-                        className="w-full bg-surface border border-border rounded-lg pl-10 pr-3.5 py-2.5 text-sm text-text-main focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-text-muted/40 resize-none"
-                        placeholder="Tell us about your goals..."
+                        className="peer h-5 w-5 cursor-pointer appearance-none rounded border border-border bg-surface checked:bg-text-main checked:border-text-main transition-all"
                       />
-                      <Target className="absolute left-3 top-3 w-4 h-4 text-text-muted" />
+                      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-background opacity-0 peer-checked:opacity-100">
+                        <svg
+                          className="h-3.5 w-3.5"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      </div>
                     </div>
+                    <label
+                      className="text-sm text-text-muted cursor-pointer select-none"
+                      onClick={() =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          agreedToTerms: !prev.agreedToTerms,
+                        }))
+                      }
+                    >
+                      I've read the T&C & Privacy Policy
+                    </label>
                   </div>
-
-
 
                   {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-text-main hover:bg-text-secondary text-background font-semibold py-3 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/30 active:scale-[0.98] text-sm mt-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full bg-white hover:bg-white/90 text-black font-bold py-4 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-[0.99] text-base mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    {isLoading ? 'Sending...' : 'Send Request'}
-                    <ArrowRight className="w-4 h-4" />
+                    {isLoading ? "Sending..." : "Request a Call"}
+                    <ArrowRight className="w-5 h-5" />
                   </button>
-                  
-                  <p className="text-xs text-text-muted text-center pt-2">
-                    We usually respond within 24 hours.
-                  </p>
                 </form>
               </div>
             ) : (
@@ -279,15 +292,15 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
                 <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 ring-8 ring-primary/5">
                   <CheckCircle className="w-10 h-10 text-primary" />
                 </div>
-                <h3 className="text-2xl font-bold text-text-main mb-3">
+                <h3 className="text-3xl font-bold text-text-main mb-3">
                   Request Received!
                 </h3>
-                <p className="text-text-muted max-w-[280px] mx-auto mb-8">
-                  We'll be in touch shortly to schedule your demo.
+                <p className="text-text-muted max-w-[280px] mx-auto mb-8 text-lg">
+                  We'll call you shortly to discuss your growth.
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
-                  className="text-sm font-medium text-primary hover:text-primary-hover underline decoration-2 underline-offset-4"
+                  className="text-base font-medium text-white hover:text-white/80 underline decoration-2 underline-offset-4"
                 >
                   Submit another request
                 </button>
@@ -302,7 +315,7 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="hidden lg:block relative"
           >
-            <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl h-[580px]">
+            <div className="relative rounded-3xl overflow-hidden border border-border shadow-2xl h-[640px]">
               <AnimatePresence mode="sync">
                 <motion.div
                   key={currentSlide}
@@ -324,7 +337,7 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
 
                   {/* Overlay Text */}
                   <motion.div
-                    className="absolute bottom-8 left-8 right-8"
+                    className="absolute bottom-10 left-10 right-10"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -337,7 +350,7 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
                     <h3 className="text-3xl font-bold text-white mb-2">
                       {carouselImages[currentSlide].title}
                     </h3>
-                    <p className="text-white/80 text-base">
+                    <p className="text-white/80 text-lg">
                       {carouselImages[currentSlide].subtitle}
                     </p>
                   </motion.div>
@@ -345,14 +358,14 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
               </AnimatePresence>
 
               {/* Carousel Indicators */}
-              <div className="absolute bottom-8 right-8 flex gap-2 z-10">
+              <div className="absolute bottom-10 right-10 flex gap-2 z-10">
                 {carouselImages.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
                     className={`h-2 rounded-full transition-all duration-500 ease-out ${
                       index === currentSlide
-                        ? "bg-primary w-6"
+                        ? "bg-white w-8"
                         : "bg-white/30 w-2 hover:bg-white/50"
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
@@ -365,12 +378,12 @@ const BookDemo: React.FC<BookDemoProps> = ({ onBack }) => {
       </div>
 
       {/* Official Business Partners */}
-      <div className="mt-16 lg:mt-24">
+      <div className="mt-20 lg:mt-32">
         <Testimonials />
       </div>
 
       {/* Client Reviews */}
-      <div className="mt-12">
+      <div className="mt-16">
         <Services />
       </div>
     </div>

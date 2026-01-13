@@ -8,6 +8,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 import BlurText from "./BlurText";
 
 const Contact: React.FC = () => {
@@ -38,32 +40,54 @@ const Contact: React.FC = () => {
     setError('');
     
     try {
+      // Save to Firebase Firestore
+      const formSubmissionData = {
+        name: formData.name,
+        email: formData.email,
+        website: formData.website,
+        budget: formData.budget,
+        message: formData.message,
+        formType: 'contact',
+        timestamp: serverTimestamp(),
+        createdAt: new Date().toISOString()
+      };
+
+      await addDoc(collection(db, 'formSubmissions'), formSubmissionData);
+
+      // Also send to existing API endpoint (keeping existing functionality)
       const apiBase =
         (import.meta as any)?.env?.VITE_API_BASE_URL ||
         (typeof window !== 'undefined' && window.location.hostname !== 'localhost'
           ? 'https://evoc-labz-backend.onrender.com'
           : 'http://localhost:5000');
       const apiUrl = `${apiBase.replace(/\/+$/, '')}/api/book-demo`;
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          workEmail: formData.email,
-          website: formData.website,
-          budget: formData.budget,
-          goals: formData.message
-        }),
-      });
       
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
-        const result = await response.json();
-        setError(result.error || 'Failed to submit form. Please try again.');
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            workEmail: formData.email,
+            website: formData.website,
+            budget: formData.budget,
+            goals: formData.message
+          }),
+        });
+        
+        if (!response.ok) {
+          const result = await response.json();
+          console.warn('API submission failed:', result.error);
+          // Don't fail the form submission if API fails, Firebase save succeeded
+        }
+      } catch (apiErr) {
+        console.warn('API submission error:', apiErr);
+        // Don't fail the form submission if API fails, Firebase save succeeded
       }
+      
+      setIsSubmitted(true);
     } catch (err) {
       console.error('Error submitting form:', err);
       setError('An error occurred. Please try again.');

@@ -25,5 +25,9 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "."),
       },
     },
+
+    optimizeDeps: {
+      include: ["firebase/app", "firebase/firestore", "firebase/analytics"],
+    },
   };
 });
